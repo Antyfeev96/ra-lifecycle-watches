@@ -1,10 +1,15 @@
 import './Watch.scss';
+import moment from 'moment/min/moment-with-locales';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 export default class Watch extends Component {
   constructor(props) {
     super(props);
+    this.time = moment().utc().format('HH:mm:ss');
+    this.diff = +this.props.timestamp
+    console.log(this.diff);;
+    this.newTime = moment().utc().add(this.diff, 'hours').format('HH:mm:ss');
   }
 
   static propTypes = {
@@ -14,12 +19,16 @@ export default class Watch extends Component {
     })
   }
 
+  // giveLocalTime(timestamp) {
+
+  // }
+
   render() {
     return (
       <div className="watch">
-        <div className="watch__city">{this.props.city}</div>
-        <div className="watch__delete"></div>
-        <div className="watch__time">{this.props.timestamp}</div>
+        <span className="watch__city">{this.props.city}</span>
+        <span className="watch__delete">✘</span>
+        <div className="watch__time">{this.newTime}</div>
       </div>
     )
   }
