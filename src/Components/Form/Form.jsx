@@ -1,6 +1,5 @@
 import "./Form.scss";
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { Component } from 'react'
 
 export default class Form extends Component {
   constructor(props) {
@@ -14,7 +13,6 @@ export default class Form extends Component {
   onInputHandler(event) {
     const { name, value } = event.target;
     this.setState((state) => ({...state, [name]: value}));
-    console.log(this.state);
   }
 
   render() {
