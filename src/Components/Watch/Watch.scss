@@ -1,6 +1,23 @@
 .watch {
-  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-between;
   &__delete {
     margin-left: 5px;
+  }
+
+  &__delete:hover {
+    cursor: pointer;
+  }
+
+  & + .watch {
+    margin-left: 10px;
+  }
+
+  &__clock {
+    font-family: Tahoma, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color:#0000cc;
   }
 }

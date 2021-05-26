@@ -1,35 +1,53 @@
-import './Watch.scss';
-import moment from 'moment/min/moment-with-locales';
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import "./Watch.scss";
+import moment from "moment";
+import { Component } from "react";
+import PropTypes from "prop-types";
+import Clock from "../Clock/Clock";
 
 export default class Watch extends Component {
   constructor(props) {
     super(props);
-    this.time = moment().utc().format('HH:mm:ss');
-    this.diff = +this.props.timestamp
-    console.log(this.diff);;
-    this.newTime = moment().utc().add(this.diff, 'hours').format('HH:mm:ss');
+    console.log(moment().utc().add(this.diff, "hours")._d);
+    this.diff = +this.props.timestamp;
+    this.state = {
+      date: moment().utc().add(this.diff, "hours")._d,
+      // .format("HH:mm:ss")
+    };
+    this.deleteWatch = this.props.deleteWatch;
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: moment().utc().add(this.diff, "hours")._d,
+      // .format('HH:mm:ss')
+    });
   }
 
   static propTypes = {
     data: PropTypes.shape({
       city: PropTypes.string.isRequired,
-      timestamp: PropTypes.string.isRequired
-    })
-  }
-
-  // giveLocalTime(timestamp) {
-
-  // }
+      timestamp: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
+    }),
+  };
 
   render() {
     return (
-      <div className="watch">
-        <span className="watch__city">{this.props.city}</span>
-        <span className="watch__delete">✘</span>
-        <div className="watch__time">{this.newTime}</div>
+      <div className='watch'>
+        <span className='watch__city'>{this.props.city}</span>
+        <span className='watch__delete' onClick={this.deleteWatch}>
+          ✘
+        </span>
+        <Clock date={this.state.date} />
       </div>
-    )
+    );
   }
 }
