@@ -1,17 +1,18 @@
 import "./Watch.scss";
-import moment from "moment";
+import moment from "moment-timezone";
 import { Component } from "react";
 import PropTypes from "prop-types";
 import Clock from "../Clock/Clock";
+moment.tz.setDefault("Europe/London");
 
 export default class Watch extends Component {
   constructor(props) {
     super(props);
-    console.log(moment().utc().add(this.diff, "hours")._d);
-    this.diff = +this.props.timestamp;
+    console.log(moment().format('HH:mm:ss'));
+    console.log(new Date().getTimezoneOffset());
+    this.diff = -(+this.props.timestamp * 60);
     this.state = {
-      date: moment().utc().add(this.diff, "hours")._d,
-      // .format("HH:mm:ss")
+      date: moment().utcOffset(this.diff, false),
     };
     this.deleteWatch = this.props.deleteWatch;
   }
@@ -26,8 +27,7 @@ export default class Watch extends Component {
 
   tick() {
     this.setState({
-      date: moment().utc().add(this.diff, "hours")._d,
-      // .format('HH:mm:ss')
+      date: moment().utcOffset(this.diff * 60, false)._d,
     });
   }
 

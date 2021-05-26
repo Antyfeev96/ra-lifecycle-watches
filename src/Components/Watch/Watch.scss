@@ -1,7 +1,8 @@
 .watch {
   display: flex;
   flex-wrap: wrap;
-  // justify-content: space-between;
+  justify-content: space-evenly;
+  width: 225px;
   &__delete {
     margin-left: 5px;
   }

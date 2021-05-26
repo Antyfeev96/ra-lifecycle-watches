@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import moment from "moment-timezone";
 import React, { Component } from "react";
 
 export default class Clock extends Component {
@@ -11,6 +12,7 @@ export default class Clock extends Component {
   }
 
   displayCanvas(date) {
+    console.log(moment(date));
     const canvasEl = this.clockRef.current;
     canvasEl.setAttribute('width', 200);
     canvasEl.setAttribute('height', 200);
@@ -88,10 +90,11 @@ export default class Clock extends Component {
     const lengthSeconds = radiusNum - 10;
     const lengthMinutes = radiusNum - 15;
     const lengthHour = lengthMinutes / 1.5;
-
-    const t_sec = 6 * date.getSeconds(); //Определяем угол для секунд
-    const t_min = 6 * (date.getMinutes() + (1/60) * date.getSeconds()); //Определяем угол для минут
-    const t_hour = 30 * (date.getHours() + (1/60) * date.getMinutes()); //Определяем угол для часов
+    
+    console.log(+moment(date).seconds());
+    const t_sec = 6 * +moment(date).seconds(); //Определяем угол для секунд
+    const t_min = 6 * (+moment(date).minutes() + (1/60) * +moment(date).seconds()); //Определяем угол для минут
+    const t_hour = 30 * (+moment(date).hours() + (1/60) * +moment(date).minutes()); //Определяем угол для часов
 
     //Рисуем секунды
     contextEl.beginPath();
@@ -136,7 +139,7 @@ export default class Clock extends Component {
   componentDidMount() {
     this.timerID = setInterval(() => {
       this.setState({date: this.props.date});
-      this.displayCanvas(this.state.date);
+      this.displayCanvas('23:16:25');
     }, 1000);
   }
 
