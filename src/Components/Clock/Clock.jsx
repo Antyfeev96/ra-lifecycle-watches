@@ -90,9 +90,9 @@ export default class Clock extends Component {
     const lengthMinutes = radiusNum - 15;
     const lengthHour = lengthMinutes / 1.5;
 
-    const t_sec = 6 * date.getSeconds(); //Определяем угол для секунд
-    const t_min = 6 * (date.getMinutes() + (1/60) * date.getSeconds()); //Определяем угол для минут
-    const t_hour = 30 * (date.getHours() + (1/60) * date.getMinutes()); //Определяем угол для часов
+    const t_sec = 6 * date.seconds(); //Определяем угол для секунд
+    const t_min = 6 * (date.minutes() + (1/60) * date.seconds()); //Определяем угол для минут
+    const t_hour = 30 * (date.hours() + (1/60) * date.minutes()); //Определяем угол для часов
 
     //Рисуем секунды
     contextEl.beginPath();
@@ -137,7 +137,7 @@ export default class Clock extends Component {
   componentDidMount() {
     this.timerID = setInterval(() => {
       this.setState({date: this.props.date});
-      this.displayCanvas('23:16:25');
+      this.displayCanvas(this.state.date);
     }, 1000);
   }
 

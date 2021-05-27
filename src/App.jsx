@@ -14,7 +14,17 @@ export default function App() {
     },
     {
       city: 'London',
-      timestamp: '0',
+      timestamp: '+1',
+      key: nanoid(5)
+    },
+    {
+      city: 'Tokyo',
+      timestamp: '+9',
+      key: nanoid(5)
+    },
+    {
+      city: 'New York',
+      timestamp: '-4',
       key: nanoid(5)
     }
   ])
